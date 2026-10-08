@@ -1,0 +1,1934 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="DEV-X STORE — متجر إلكتروني احترافي لمنتجات DEV-X.">
+<title>DEV-X STORE — المتجر الرسمي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --navy:#041F60; --blue:#145DA0; --purple:#7500A9; --orange:#FF751F;
+  --cream:#F5F2EE; --white:#fff;
+  --ink:#0E1B3D; --ink-2:#243356; --muted:#66738C; --muted-2:#8A94AA;
+  --line:#E3E7EF; --line-2:#EEF1F6;
+  --surface:#fff; --surface-2:#FBFAF8; --surface-3:#F1EEE8;
+  --soft-blue:#EDF4FB; --soft-purple:#F6EDFA; --soft-orange:#FFF1E8;
+  --soft-green:#EBF6F0; --soft-yellow:#FFF8E6; --soft-red:#FDEDEB;
+  --error:#B42318; --success:#157347;
+  --r-xs:8px; --r-sm:12px; --r-md:16px; --r-lg:22px; --r-xl:28px; --r-pill:999px;
+  --sh-xs:0 1px 2px rgba(4,31,96,.06);
+  --sh-sm:0 4px 14px rgba(4,31,96,.06);
+  --sh-md:0 10px 30px rgba(4,31,96,.08);
+  --sh-lg:0 22px 60px rgba(4,31,96,.12);
+  --focus:0 0 0 4px rgba(20,93,160,.18);
+  --max:1240px; --header-h:74px;
+  --ease:cubic-bezier(.2,.8,.2,1); --dur:.22s;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;
+  font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body.no-scroll{overflow:hidden}
+img,svg{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4,h5{color:var(--navy);line-height:1.25;margin:0;font-weight:800;letter-spacing:-.01em}
+h1{font-size:clamp(26px,3.4vw,40px);font-weight:900;letter-spacing:-.03em}
+h2{font-size:clamp(20px,2.4vw,30px);font-weight:900;letter-spacing:-.025em}
+h3{font-size:clamp(16px,1.4vw,19px);font-weight:800}
+p{margin:0 0 12px}
+ul{margin:0;padding:0;list-style:none}
+:focus-visible{outline:none;box-shadow:var(--focus);border-radius:10px}
+
+.container{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
+@media(max-width:640px){.container{width:calc(100% - 28px)}}
+.section{padding:52px 0}
+@media(max-width:640px){.section{padding:36px 0}}
+
+.row{display:flex;align-items:center;gap:12px}
+.row-between{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.grid{display:grid;gap:24px}
+.g-2{grid-template-columns:repeat(2,1fr)}
+.g-3{grid-template-columns:repeat(3,1fr)}
+.g-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1000px){.g-4{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:820px){.g-3,.g-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.g-2,.g-3,.g-4{grid-template-columns:repeat(2,1fr)}.g-2{grid-template-columns:1fr}}
+
+.muted{color:var(--muted)} .small{font-size:13px} .tiny{font-size:12px}
+.center{text-align:center} .hidden{display:none!important}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;color:var(--blue);
+  font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;
+}
+.eyebrow::before{content:"";width:20px;height:3px;border-radius:999px;
+  background:linear-gradient(90deg,var(--orange),var(--purple))}
+.section-head{margin-bottom:24px;max-width:720px}
+.section-head p{color:var(--muted);margin-top:6px;font-size:14px}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:0 22px;border-radius:var(--r-pill);
+  font-weight:800;font-size:14px;border:1px solid transparent;
+  transition:transform var(--dur) var(--ease),background var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease);
+  white-space:nowrap;user-select:none;cursor:pointer;
+}
+.btn:disabled,.btn[aria-disabled="true"]{opacity:.5;cursor:not-allowed;pointer-events:none}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:0 10px 24px rgba(255,117,31,.24)}
+.btn-primary:hover{background:#f96a12;box-shadow:0 14px 30px rgba(255,117,31,.32);transform:translateY(-1px)}
+.btn-navy{background:var(--navy);color:#fff;box-shadow:0 10px 24px rgba(4,31,96,.18)}
+.btn-navy:hover{background:#062a7a;transform:translateY(-1px)}
+.btn-outline{background:#fff;border-color:var(--line);color:var(--navy)}
+.btn-outline:hover{border-color:rgba(20,93,160,.4);background:var(--soft-blue);color:var(--blue);transform:translateY(-1px)}
+.btn-soft{background:var(--soft-blue);color:var(--blue);border-color:transparent}
+.btn-soft:hover{background:#e2eef9}
+.btn-purple{background:var(--soft-purple);color:var(--purple);border-color:transparent}
+.btn-purple:hover{background:#efdef7}
+.btn-danger{background:var(--soft-red);color:var(--error)}
+.btn-danger:hover{background:#fbe0dc}
+.btn-block{width:100%}
+.btn-sm{min-height:38px;padding:0 16px;font-size:13px}
+.btn-lg{min-height:54px;padding:0 28px;font-size:15px}
+.btn-icon{width:46px;height:46px;padding:0;border-radius:var(--r-pill);display:grid;place-items:center}
+.btn-icon svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* Cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-sm)}
+.card-pad{padding:24px}
+@media(max-width:640px){.card-pad{padding:18px}}
+.divider{height:1px;background:var(--line);margin:20px 0;border:0}
+
+/* Chips & badges */
+.chip{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:var(--r-pill);
+  border:1px solid var(--line);background:#fff;color:var(--navy);font-size:13px;font-weight:700;
+  cursor:pointer;transition:all var(--dur) var(--ease);white-space:nowrap;
+}
+.chip:hover{border-color:rgba(20,93,160,.4);background:var(--soft-blue);color:var(--blue);transform:translateY(-1px)}
+.chip.is-active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.badge-dot{
+  position:absolute;top:-3px;inset-inline-start:-3px;min-width:19px;height:19px;padding:0 5px;
+  border-radius:999px;background:var(--orange);color:#fff;font-size:10px;font-weight:900;
+  display:grid;place-items:center;box-shadow:0 0 0 3px #fff;
+}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;
+  font-size:11px;font-weight:800;letter-spacing:.02em}
+.tag-new{background:var(--soft-blue);color:var(--blue)}
+.tag-discount{background:var(--soft-orange);color:#B84A0B}
+.tag-out{background:var(--surface-3);color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;
+  font-size:12px;font-weight:800}
+.pill-blue{background:var(--soft-blue);color:var(--blue)}
+.pill-orange{background:var(--soft-orange);color:#B84A0B}
+.pill-green{background:var(--soft-green);color:var(--success)}
+.pill-muted{background:var(--surface-3);color:var(--muted)}
+
+/* Fields */
+.field-label{display:block;font-size:13px;font-weight:800;color:var(--navy);margin-bottom:8px}
+.field-label .req{color:var(--orange)}
+.field{width:100%;min-height:50px;padding:12px 16px;background:#fff;border:1px solid var(--line);
+  border-radius:var(--r-md);color:var(--ink);font-size:14px;
+  transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.field::placeholder{color:var(--muted-2)}
+.field:hover{border-color:#d2d9e5}
+.field:focus{outline:none;border-color:var(--blue);box-shadow:var(--focus)}
+.field.is-error{border-color:var(--error);box-shadow:0 0 0 4px rgba(180,35,24,.10)}
+.field-error{font-size:12px;color:var(--error);margin-top:6px;font-weight:700}
+textarea.field{min-height:120px;padding:14px 16px;resize:vertical;line-height:1.7}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.form-row{grid-template-columns:1fr}}
+.field-group + .field-group{margin-top:16px}
+
+/* Header */
+.topbar{background:var(--navy);color:#fff;font-size:12px;padding:8px 0;text-align:center}
+.topbar b{color:var(--orange)}
+.topbar .container{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);
+  backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);
+  border-bottom:1px solid var(--line)}
+.header-inner{display:flex;align-items:center;gap:16px;min-height:var(--header-h)}
+.brand{display:flex;align-items:center;flex-shrink:0;padding:6px 4px}
+.brand img{width:128px;height:auto;object-fit:contain;display:block}
+@media(max-width:640px){.brand img{width:106px}}
+.nav{display:flex;align-items:center;gap:2px;margin-inline-start:12px}
+.nav button{padding:10px 14px;border-radius:var(--r-pill);color:var(--navy);font-weight:800;
+  font-size:14px;transition:all var(--dur) var(--ease)}
+.nav button:hover{background:var(--soft-blue);color:var(--blue)}
+.nav button.is-active{background:var(--soft-blue);color:var(--blue)}
+.header-actions{display:flex;align-items:center;gap:8px;margin-inline-start:auto}
+.icon-btn{position:relative;width:44px;height:44px;border-radius:var(--r-pill);display:grid;
+  place-items:center;background:#fff;border:1px solid var(--line);color:var(--navy);
+  transition:all var(--dur) var(--ease)}
+.icon-btn:hover{background:var(--soft-blue);color:var(--blue);border-color:rgba(20,93,160,.35);transform:translateY(-1px)}
+.icon-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.menu-toggle{display:none}
+@media(max-width:1000px){.nav{display:none}.menu-toggle{display:grid}}
+.mobile-nav{display:none;border-top:1px solid var(--line);background:#fff;padding:12px 16px 18px}
+.mobile-nav.is-open{display:block}
+.mobile-nav button{display:block;width:100%;text-align:right;padding:14px 16px;
+  border-radius:var(--r-pill);color:var(--navy);font-weight:800}
+.mobile-nav button:hover{background:var(--soft-blue);color:var(--blue)}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;color:#fff;
+  background:linear-gradient(135deg,var(--navy) 0%,#072B72 55%,var(--blue) 100%);
+  border-radius:0 0 40px 40px}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.hero::before{width:520px;height:520px;inset-inline-end:-220px;top:-200px;
+  background:radial-gradient(circle,rgba(255,117,31,.22),transparent 65%)}
+.hero::after{width:460px;height:460px;inset-inline-start:-220px;bottom:-260px;
+  background:radial-gradient(circle,rgba(117,0,169,.22),transparent 66%)}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;
+  gap:44px;align-items:center;padding:68px 0 76px}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:32px;padding:52px 0 60px;text-align:center}
+  .hero-ctas{justify-content:center}.hero-visual{margin-inline:auto}}
+.hero h1{color:#fff;font-size:clamp(28px,4vw,52px);line-height:1.14;letter-spacing:-.03em;margin-bottom:16px}
+.hero p{color:rgba(255,255,255,.82);font-size:16px;max-width:560px;margin-bottom:26px}
+@media(max-width:900px){.hero p{margin-inline:auto}}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero-ctas .btn-primary{box-shadow:0 14px 34px rgba(255,117,31,.32)}
+.hero-visual{position:relative;display:grid;place-items:center;min-height:360px;
+  border-radius:var(--r-xl);border:1px solid rgba(255,255,255,.16);padding:30px;overflow:hidden;
+  background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.03))}
+.hero-visual img{width:min(340px,90%);filter:drop-shadow(0 24px 40px rgba(0,0,0,.28));
+  position:relative;z-index:2}
+
+/* Cat tile */
+.cat-tile{position:relative;display:block;border-radius:var(--r-lg);background:#fff;
+  border:1px solid var(--line);padding:22px;text-align:right;overflow:hidden;
+  transition:all var(--dur) var(--ease);cursor:pointer;width:100%}
+.cat-tile:hover{transform:translateY(-4px);border-color:rgba(20,93,160,.3);box-shadow:var(--sh-md)}
+.cat-tile .cat-ic{width:52px;height:52px;border-radius:var(--r-md);display:grid;
+  place-items:center;background:var(--soft-blue);color:var(--blue);margin-bottom:16px;
+  transition:all var(--dur) var(--ease)}
+.cat-tile .cat-ic svg{width:26px;height:26px;stroke:currentColor;fill:none;
+  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cat-tile:hover .cat-ic{background:var(--soft-orange);color:var(--orange)}
+.cat-tile h4{color:var(--navy);font-size:16px;font-weight:800;margin:0 0 4px}
+.cat-tile span{font-size:12px;color:var(--muted);font-weight:600}
+
+/* Product card */
+.p-card{position:relative;display:flex;flex-direction:column;background:#fff;
+  border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
+  transition:all var(--dur) var(--ease)}
+.p-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md);border-color:rgba(20,93,160,.24)}
+.p-media{position:relative;aspect-ratio:1/1;display:grid;place-items:center;overflow:hidden;
+  background:linear-gradient(145deg,#F7F9FC 0%,#EEF4FA 100%)}
+.p-media .p-shape{width:56%;height:56%;border-radius:24%;background:#fff;
+  border:2px dashed rgba(20,93,160,.28);display:grid;place-items:center;
+  color:var(--blue);font-weight:900;font-size:22px;
+  transition:transform var(--dur) var(--ease)}
+.p-card:hover .p-media .p-shape{transform:scale(1.04) rotate(-2deg)}
+.p-media::after{content:"";position:absolute;inset:auto 14% 8%;height:4px;border-radius:999px;
+  background:linear-gradient(90deg,var(--blue),var(--purple),var(--orange));opacity:.55}
+.p-tags{position:absolute;top:12px;inset-inline-start:12px;display:flex;flex-direction:column;gap:6px;z-index:2}
+.p-fav{position:absolute;top:12px;inset-inline-end:12px;z-index:2;width:38px;height:38px;
+  border-radius:var(--r-pill);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  border:1px solid rgba(4,31,96,.06);display:grid;place-items:center;color:var(--navy);
+  transition:all var(--dur) var(--ease)}
+.p-fav:hover{background:#fff;color:var(--orange);transform:scale(1.06)}
+.p-fav.is-on{color:var(--orange)}
+.p-fav.is-on svg{fill:var(--orange)}
+.p-fav svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.p-body{padding:16px;display:flex;flex-direction:column;flex:1;gap:8px}
+.p-cat{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.05em;text-transform:uppercase}
+.p-name{font-size:15px;font-weight:800;color:var(--navy);line-height:1.35;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  min-height:42px;margin:0}
+.p-price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:auto}
+.p-price .now{font-size:16px;font-weight:900;color:var(--navy)}
+.p-price .old{font-size:13px;color:var(--muted);text-decoration:line-through}
+.p-price .undef{font-size:13px;font-weight:700;color:var(--muted)}
+.p-actions{display:flex;gap:8px;margin-top:12px}
+.p-actions .btn{flex:1;min-height:40px;padding:0 12px;font-size:13px}
+.p-card.is-out .p-media{filter:grayscale(.65);opacity:.72}
+.p-card.is-out .p-shape{border-style:solid;border-color:var(--line)}
+
+/* Page head */
+.page-head{padding:32px 0 22px}
+.breadcrumbs{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);
+  font-weight:600;margin-bottom:12px;flex-wrap:wrap}
+.breadcrumbs a{color:var(--muted)}
+.breadcrumbs a:hover{color:var(--blue)}
+.breadcrumbs .sep{opacity:.5}
+.breadcrumbs .current{color:var(--navy);font-weight:800}
+.page-head h1{margin-bottom:8px}
+.page-head .lead{color:var(--muted);max-width:680px;font-size:15px}
+
+/* Toolbar */
+.toolbar{display:flex;flex-direction:column;gap:14px;padding:16px 18px;
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);margin-bottom:20px}
+.toolbar-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.search-input{position:relative;flex:1;min-width:220px}
+.search-input svg{position:absolute;top:50%;inset-inline-start:14px;transform:translateY(-50%);
+  width:18px;height:18px;color:var(--muted);stroke:currentColor;fill:none;
+  stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.search-input .field{padding-inline-start:42px;min-height:46px}
+.sort-select{min-height:46px;padding:0 16px;border:1px solid var(--line);
+  border-radius:var(--r-pill);background:#fff;color:var(--navy);font-weight:800;
+  font-size:13px;cursor:pointer;appearance:none;padding-inline-end:38px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23041F60' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat:no-repeat;background-position:left 14px center;
+  transition:all var(--dur) var(--ease)}
+.sort-select:hover{border-color:rgba(20,93,160,.4)}
+.count-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;
+  background:var(--soft-blue);color:var(--blue);border-radius:var(--r-pill);
+  font-size:12px;font-weight:800}
+
+/* Store layout */
+.store-layout{display:grid;grid-template-columns:260px 1fr;gap:28px;align-items:start}
+@media(max-width:960px){.store-layout{grid-template-columns:1fr}}
+.filters-side{position:sticky;top:calc(var(--header-h) + 16px)}
+@media(max-width:960px){.filters-side{position:static}}
+.filter-group + .filter-group{margin-top:20px;padding-top:20px;border-top:1px solid var(--line-2)}
+.filter-group h5{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:12px}
+.filter-list{display:flex;flex-direction:column;gap:8px}
+.filter-opt{display:flex;align-items:center;gap:10px;padding:8px 10px;
+  border-radius:var(--r-sm);cursor:pointer;font-size:13px;color:var(--ink-2);
+  transition:background var(--dur) var(--ease)}
+.filter-opt:hover{background:var(--soft-blue)}
+.filter-opt input{accent-color:var(--blue);width:16px;height:16px;cursor:pointer}
+.filter-size-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.size-opt{min-height:38px;border-radius:var(--r-sm);border:1px solid var(--line);
+  background:#fff;font-size:12px;font-weight:800;color:var(--navy);
+  transition:all var(--dur) var(--ease)}
+.size-opt:hover{border-color:var(--blue);color:var(--blue)}
+.size-opt.is-on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.filter-trigger{display:none}
+@media(max-width:960px){.filters-side{display:none}.filter-trigger{display:inline-flex}}
+
+/* Product detail */
+.pd-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:start}
+@media(max-width:900px){.pd-layout{grid-template-columns:1fr}}
+.pd-gallery{position:sticky;top:calc(var(--header-h) + 20px);display:flex;flex-direction:column;gap:14px}
+@media(max-width:900px){.pd-gallery{position:static}}
+.pd-hero{aspect-ratio:1/1;border:1px solid var(--line);border-radius:var(--r-xl);
+  display:grid;place-items:center;position:relative;overflow:hidden;
+  background:linear-gradient(145deg,#F7F9FC,#EEF4FA)}
+.pd-hero .p-shape{width:48%;height:48%;border-radius:24%;background:#fff;
+  border:2px dashed rgba(20,93,160,.3);display:grid;place-items:center;
+  color:var(--blue);font-weight:900;font-size:32px}
+.pd-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.pd-thumb{aspect-ratio:1/1;border-radius:var(--r-md);border:1px solid var(--line);
+  background:linear-gradient(145deg,#F7F9FC,#EEF4FA);display:grid;place-items:center;
+  color:var(--blue);font-weight:800;font-size:13px;cursor:pointer;
+  transition:all var(--dur) var(--ease)}
+.pd-thumb:hover{border-color:rgba(20,93,160,.4)}
+.pd-thumb.is-on{border-color:var(--blue);box-shadow:0 0 0 3px rgba(20,93,160,.15)}
+.pd-info{display:flex;flex-direction:column;gap:18px}
+.pd-title{font-size:clamp(20px,2.2vw,28px);font-weight:900;color:var(--navy);
+  line-height:1.25;letter-spacing:-.02em}
+.pd-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.pd-rating{display:inline-flex;align-items:center;gap:6px;color:#B45309;font-weight:800}
+.pd-price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:14px 0;
+  border-block:1px solid var(--line-2)}
+.pd-price .now{font-size:24px;font-weight:900;color:var(--navy)}
+.pd-price .old{font-size:15px;color:var(--muted);text-decoration:line-through}
+.pd-price .undef{font-size:15px;font-weight:700;color:var(--muted)}
+.opt-group + .opt-group{margin-top:18px}
+.opt-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.opt-header .label{font-size:13px;font-weight:800;color:var(--navy)}
+.opt-header .hint{font-size:12px;color:var(--muted);font-weight:600}
+.opt-row{display:flex;gap:8px;flex-wrap:wrap}
+.opt-chip{min-width:46px;min-height:42px;padding:0 14px;border-radius:var(--r-sm);
+  border:1px solid var(--line);background:#fff;font-size:13px;font-weight:800;
+  color:var(--navy);transition:all var(--dur) var(--ease);
+  display:inline-flex;align-items:center;gap:8px}
+.opt-chip:hover{border-color:var(--blue);color:var(--blue)}
+.opt-chip.is-on{background:var(--soft-blue);border-color:var(--blue);color:var(--blue);
+  box-shadow:0 4px 12px rgba(20,93,160,.10)}
+.opt-chip[disabled]{opacity:.4;text-decoration:line-through;cursor:not-allowed}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);
+  border-radius:var(--r-pill);background:#fff;overflow:hidden;width:max-content}
+.qty button{width:42px;height:44px;display:grid;place-items:center;
+  color:var(--navy);font-size:18px;font-weight:700;
+  transition:background var(--dur) var(--ease)}
+.qty button:hover{background:var(--soft-blue);color:var(--blue)}
+.qty span{min-width:44px;text-align:center;font-weight:900;color:var(--navy)}
+.pd-actions{display:flex;gap:10px;flex-wrap:wrap}
+.pd-actions .btn{flex:1;min-width:160px}
+.acc{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.acc + .acc{margin-top:10px}
+.acc summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;
+  align-items:center;justify-content:space-between;gap:12px;
+  font-weight:800;color:var(--navy);font-size:14px}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"";width:10px;height:10px;
+  border-inline-end:2px solid var(--navy);border-block-end:2px solid var(--navy);
+  transform:rotate(45deg);transition:transform var(--dur) var(--ease);
+  margin-inline-start:auto}
+.acc[open] summary::after{transform:rotate(-135deg)}
+.acc .acc-body{padding:0 20px 20px;color:var(--muted);font-size:13px;line-height:1.8}
+.acc .acc-body ul{list-style:disc;padding-inline-start:18px;display:flex;
+  flex-direction:column;gap:6px}
+
+/* Cart */
+.cart-layout{display:grid;grid-template-columns:1.5fr .9fr;gap:24px;align-items:start}
+@media(max-width:900px){.cart-layout{grid-template-columns:1fr}}
+.cart-item{display:grid;grid-template-columns:88px 1fr auto;gap:16px;
+  align-items:center;padding:18px 20px;border-bottom:1px solid var(--line-2)}
+.cart-item:last-child{border-bottom:0}
+@media(max-width:640px){
+  .cart-item{grid-template-columns:70px 1fr;gap:12px;padding:14px}
+  .cart-item .item-actions{grid-column:2;grid-row:2;display:flex;
+    justify-content:space-between;align-items:center;margin-top:8px}
+}
+.cart-thumb{aspect-ratio:1/1;border-radius:var(--r-md);border:1px solid var(--line);
+  background:linear-gradient(145deg,#F7F9FC,#EEF4FA);display:grid;place-items:center;
+  color:var(--blue);font-weight:900;font-size:16px}
+.cart-item h4{font-size:14px;font-weight:800;color:var(--navy);margin:0 0 4px}
+.cart-item .meta{font-size:12px;color:var(--muted);margin:0}
+.cart-item .price{font-size:14px;font-weight:800;color:var(--navy);margin-top:6px}
+.summary{position:sticky;top:calc(var(--header-h) + 20px);padding:24px}
+@media(max-width:900px){.summary{position:static}}
+.summary h3{margin-bottom:16px}
+.sum-row{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px 0;color:var(--ink-2);font-size:14px}
+.sum-row b{color:var(--navy)}
+.sum-total{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding-top:16px;margin-top:10px;border-top:1px solid var(--line);
+  font-size:17px;font-weight:900;color:var(--navy)}
+
+/* Checkout */
+.checkout-layout{display:grid;grid-template-columns:1.5fr .9fr;gap:24px;align-items:start}
+@media(max-width:900px){.checkout-layout{grid-template-columns:1fr}}
+.stepper{display:flex;gap:8px;margin-bottom:22px;overflow-x:auto;padding-bottom:4px;
+  scrollbar-width:none}
+.stepper::-webkit-scrollbar{display:none}
+.step{flex:1;min-width:150px;padding:12px 16px;border-radius:var(--r-md);
+  background:#fff;border:1px solid var(--line);color:var(--muted);
+  font-size:12px;font-weight:700;text-align:right;cursor:pointer;
+  transition:all var(--dur) var(--ease)}
+.step b{display:block;color:var(--navy);font-size:13px;margin-bottom:3px;font-weight:800}
+.step.is-active{border-color:var(--blue);background:var(--soft-blue);color:var(--blue)}
+.step.is-active b{color:var(--blue)}
+.step.is-done{border-color:#BDE4CD;background:var(--soft-green)}
+.step.is-done b{color:var(--success)}
+.step.is-done::after{content:" ✓";color:var(--success);font-weight:900;margin-inline-start:6px}
+
+/* States */
+.state{padding:56px 24px;text-align:center;display:flex;flex-direction:column;
+  align-items:center;gap:8px}
+.state-ic{width:64px;height:64px;border-radius:var(--r-lg);display:grid;
+  place-items:center;margin-bottom:8px;font-weight:900;font-size:24px}
+.state-ic svg{width:30px;height:30px;stroke:currentColor;fill:none;
+  stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.state h3{margin-bottom:4px}
+.state p{color:var(--muted);max-width:420px;margin:0 auto 8px;font-size:14px}
+.state .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+
+/* Toast */
+.toast-wrap{position:fixed;bottom:20px;inset-inline-start:20px;z-index:200;
+  display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{background:var(--navy);color:#fff;padding:14px 18px;
+  border-radius:var(--r-md);box-shadow:var(--sh-lg);font-size:13px;font-weight:700;
+  display:flex;align-items:center;gap:10px;transform:translateY(14px);opacity:0;
+  transition:all .28s var(--ease);pointer-events:auto;max-width:340px}
+.toast.is-show{transform:translateY(0);opacity:1}
+.toast .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0}
+.toast.is-success .dot{background:#34D399}
+.toast.is-error .dot{background:#F97066}
+
+/* Footer */
+.footer{margin-top:52px;background:var(--navy);color:rgba(255,255,255,.78);
+  border-radius:36px 36px 0 0;padding:52px 0 24px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;
+  padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.10)}
+@media(max-width:820px){.footer-grid{grid-template-columns:1fr 1fr;gap:28px}}
+@media(max-width:520px){.footer-grid{grid-template-columns:1fr}}
+.footer h5{color:#fff;font-size:14px;font-weight:800;margin-bottom:14px}
+.footer ul{display:flex;flex-direction:column;gap:10px}
+.footer a{color:rgba(255,255,255,.68);font-size:13px;transition:color var(--dur) var(--ease)}
+.footer a:hover{color:#fff}
+.footer .brand img{width:120px;filter:brightness(0) invert(1)}
+.footer .brand-note{color:rgba(255,255,255,.62);font-size:13px;line-height:1.8;
+  margin-top:14px;max-width:340px}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding-top:22px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.55)}
+.footer-social{display:flex;gap:8px}
+.footer-social a{width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.08);display:grid;place-items:center;color:#fff;
+  transition:all var(--dur) var(--ease)}
+.footer-social a:hover{background:rgba(255,255,255,.16);transform:translateY(-2px)}
+.footer-social svg{width:16px;height:16px;stroke:currentColor;fill:none;
+  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Drawer */
+.drawer-backdrop{position:fixed;inset:0;background:rgba(4,31,96,.44);opacity:0;
+  pointer-events:none;transition:opacity .25s var(--ease);z-index:90}
+.drawer-backdrop.is-open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;bottom:0;inset-inline-start:0;z-index:100;
+  width:min(380px,92vw);background:#fff;box-shadow:var(--sh-lg);
+  transform:translateX(-100%);transition:transform .3s var(--ease);
+  display:flex;flex-direction:column}
+[dir="rtl"] .drawer{transform:translateX(100%)}
+.drawer.is-open{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;border-bottom:1px solid var(--line)}
+.drawer-head h3{font-size:16px}
+.drawer-body{flex:1;overflow-y:auto;padding:20px}
+.drawer-foot{padding:16px 20px;border-top:1px solid var(--line);background:#fff}
+
+/* Views */
+.view{display:none}
+.view.is-active{display:block;animation:fadeUp .25s var(--ease)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* Skeleton */
+.skel{background:linear-gradient(90deg,#EEF1F6 0%,#F7F9FC 50%,#EEF1F6 100%);
+  background-size:200% 100%;animation:shimmer 1.6s infinite linear;border-radius:8px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+@media(max-width:520px){
+  .hero{border-radius:0 0 28px 28px}
+  .hero h1{font-size:30px}
+  .hero-ctas{flex-direction:column;align-items:stretch}
+  .hero-ctas .btn{width:100%}
+  .p-actions{flex-direction:column}
+  .p-actions .btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container">
+    <span>مرحبًا بك في <b>DEV-X STORE</b> — الأسعار والبيانات النهائية <b>غير محددة</b> حتى الاعتماد الرسمي.</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container header-inner">
+    <a class="brand" href="#/" onclick="Router.go('home');return false" aria-label="DEV-X — الصفحة الرئيسية">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100'><text x='150' y='68' font-family='Arial Black, sans-serif' font-size='62' font-weight='900' text-anchor='middle' fill='%23041F60' letter-spacing='-3'>Dev-<tspan fill='%23FF751F'>X</tspan></text></svg>" alt="DEV-X">
+    </a>
+
+    <nav class="nav" aria-label="التنقل الرئيسي">
+      <button data-nav="home" onclick="Router.go('home')">الرئيسية</button>
+      <button data-nav="store" onclick="Router.go('store')">المتجر</button>
+      <button data-nav="categories" onclick="Router.go('categories')">الأقسام</button>
+      <button data-nav="search" onclick="Router.go('search')">البحث</button>
+      <button data-nav="orders" onclick="Router.go('orders')">الطلبات</button>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" onclick="Router.go('search')" aria-label="بحث">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.2 4.2"/></svg>
+      </button>
+      <button class="icon-btn" onclick="Router.go('favorites')" aria-label="المفضلة">
+        <svg viewBox="0 0 24 24"><path d="M20.5 8.6c0 5.1-8.5 10.2-8.5 10.2S3.5 13.7 3.5 8.6A4.6 4.6 0 0 1 12 6.2a4.6 4.6 0 0 1 8.5 2.4Z"/></svg>
+        <span class="badge-dot" id="favBadge">0</span>
+      </button>
+      <button class="icon-btn" onclick="Router.go('cart')" aria-label="السلة">
+        <svg viewBox="0 0 24 24"><path d="M4 5h2l1.4 9.2a2 2 0 0 0 2 1.7h7.4a2 2 0 0 0 1.9-1.4L21 8H7"/><circle cx="10" cy="19" r="1"/><circle cx="18" cy="19" r="1"/></svg>
+        <span class="badge-dot" id="cartBadge">0</span>
+      </button>
+      <button class="icon-btn" onclick="Router.go('account')" aria-label="الحساب">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-5.5 7-5.5S18 16 19 20"/></svg>
+      </button>
+      <button class="icon-btn menu-toggle" onclick="UI.toggleMenu()" aria-label="القائمة">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav">
+    <button onclick="Router.go('home');UI.toggleMenu()">الرئيسية</button>
+    <button onclick="Router.go('store');UI.toggleMenu()">المتجر</button>
+    <button onclick="Router.go('categories');UI.toggleMenu()">الأقسام</button>
+    <button onclick="Router.go('search');UI.toggleMenu()">البحث</button>
+    <button onclick="Router.go('orders');UI.toggleMenu()">الطلبات</button>
+    <button onclick="Router.go('account');UI.toggleMenu()">الحساب</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main id="app">
+
+  <!-- ============ HOME ============ -->
+  <section class="view is-active" id="view-home">
+    <div class="hero">
+      <div class="container hero-inner">
+        <div>
+          <div class="eyebrow" style="color:#FF751F">DEV-X STORE · المرحلة 01</div>
+          <h1>منتجات تحمل توقيع DEV-X.</h1>
+          <p>مجموعة مختارة من الملابس والإكسسوارات المصممة لهوية DEV-X. أسعار نهائية وبعض التفاصيل قيد الاعتماد الرسمي.</p>
+          <div class="hero-ctas">
+            <button class="btn btn-primary btn-lg" onclick="Router.go('store')">تسوق الآن ←</button>
+            <button class="btn btn-outline btn-lg" style="background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.20);color:#fff" onclick="Router.go('categories')">استعرض الأقسام</button>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 240'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23145DA0'/><stop offset='1' stop-color='%237500A9'/></linearGradient></defs><rect x='40' y='50' width='220' height='160' rx='24' fill='url(%23g)'/><text x='150' y='148' font-family='Arial Black' font-size='58' font-weight='900' fill='white' text-anchor='middle' letter-spacing='-3'>DEV-X</text><circle cx='60' cy='190' r='6' fill='%23FF751F'/><circle cx='245' cy='70' r='6' fill='%23FF751F'/></svg>" alt="DEV-X Merch">
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">الأقسام الرئيسية</div>
+          <h2>ابدأ من القسم الذي يناسبك.</h2>
+          <p>تيشيرتات، هوديز، بناطيل، جاكتات وإكسسوارات — كل قسم بتصميم موحّد.</p>
+        </div>
+        <div class="grid g-3" id="homeCategories"></div>
+      </div>
+    </div>
+
+    <div class="section" style="padding-top:0">
+      <div class="container">
+        <div class="row-between" style="margin-bottom:22px">
+          <div class="section-head" style="margin:0">
+            <div class="eyebrow">وصل حديثًا</div>
+            <h2>أحدث المنتجات</h2>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="Router.go('store')">عرض الكل</button>
+        </div>
+        <div class="grid g-4" id="homeNew"></div>
+      </div>
+    </div>
+
+    <div class="section" style="padding-top:0">
+      <div class="container">
+        <div class="row-between" style="margin-bottom:22px">
+          <div class="section-head" style="margin:0">
+            <div class="eyebrow">الأكثر مبيعًا</div>
+            <h2>المفضلة عند العملاء</h2>
+          </div>
+        </div>
+        <div class="grid g-4" id="homeBest"></div>
+      </div>
+    </div>
+
+    <div class="section" style="padding-top:0">
+      <div class="container">
+        <div class="card card-pad" style="background:linear-gradient(135deg,var(--soft-purple),var(--soft-blue));
+             border-color:rgba(117,0,169,.12)">
+          <div class="row-between">
+            <div>
+              <div class="eyebrow">مجموعة جديدة</div>
+              <h2 style="margin-bottom:8px">OFFERS &amp; NEW COLLECTION</h2>
+              <p class="muted" style="margin:0">الخصومات والعروض النهائية قيد الاعتماد الرسمي. سجّل حسابك لتصلك أول بأول.</p>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn btn-navy" onclick="Router.go('store')">تصفح العروض</button>
+              <button class="btn btn-outline" onclick="Router.go('register')">إنشاء حساب</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CATEGORIES ============ -->
+  <section class="view" id="view-categories">
+    <div class="container page-head">
+      <div class="breadcrumbs">
+        <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+        <span class="sep">/</span>
+        <span class="current">الأقسام</span>
+      </div>
+      <h1>الأقسام</h1>
+      <p class="lead">اختر القسم للوصول إلى جميع المنتجات فيه.</p>
+    </div>
+    <div class="container section" style="padding-top:0">
+      <div class="grid g-3" id="catPageGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ STORE ============ -->
+  <section class="view" id="view-store">
+    <div class="container page-head">
+      <div class="breadcrumbs">
+        <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+        <span class="sep">/</span>
+        <span class="current">المتجر</span>
+      </div>
+      <h1>المتجر</h1>
+      <p class="lead">جميع منتجات DEV-X في مكان واحد. استخدم الفلاتر لتضييق النتائج.</p>
+    </div>
+
+    <div class="container section" style="padding-top:0">
+      <div class="store-layout">
+        <aside class="card card-pad filters-side" id="filtersSide"></aside>
+        <div>
+          <div class="toolbar">
+            <div class="toolbar-row">
+              <div class="search-input">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.2 4.2"/></svg>
+                <input id="storeSearch" class="field" placeholder="ابحث عن منتج…" oninput="Store.render()">
+              </div>
+              <select class="sort-select" id="storeSort" onchange="Store.render()">
+                <option value="relevance">الأكثر ملاءمة</option>
+                <option value="newest">الأحدث</option>
+                <option value="price-asc">السعر: من الأقل</option>
+                <option value="price-desc">السعر: من الأعلى</option>
+                <option value="bestseller">الأكثر مبيعًا</option>
+              </select>
+              <button class="btn btn-outline btn-sm filter-trigger" onclick="UI.openDrawer('filtersDrawer')">الفلاتر</button>
+            </div>
+            <div class="toolbar-row" id="storeChips"></div>
+          </div>
+          <div class="row-between" style="margin-bottom:14px">
+            <div class="count-badge" id="storeCount">— منتج</div>
+          </div>
+          <div class="grid g-4" id="storeGrid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SEARCH ============ -->
+  <section class="view" id="view-search">
+    <div class="container page-head">
+      <div class="breadcrumbs">
+        <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+        <span class="sep">/</span>
+        <span class="current">البحث</span>
+      </div>
+      <h1>البحث</h1>
+      <p class="lead">ابحث عن منتج أو قسم. النتائج تُحدّث فوريًا.</p>
+    </div>
+    <div class="container section" style="padding-top:0">
+      <div class="card card-pad" style="margin-bottom:18px">
+        <div class="search-input">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.2 4.2"/></svg>
+          <input id="globalSearch" class="field" placeholder="اكتب اسم منتج أو قسم…" oninput="Search.render()" autofocus>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px" id="searchSuggestions"></div>
+      </div>
+      <div class="grid g-4" id="searchGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCT ============ -->
+  <section class="view" id="view-product">
+    <div class="container page-head">
+      <div class="breadcrumbs" id="productCrumbs">
+        <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+        <span class="sep">/</span>
+        <a href="#/store" onclick="Router.go('store');return false">المتجر</a>
+        <span class="sep">/</span>
+        <span class="current">تفاصيل المنتج</span>
+      </div>
+    </div>
+    <div class="container section" style="padding-top:0" id="productView"></div>
+  </section>
+
+  <!-- ============ FAVORITES ============ -->
+  <section class="view" id="view-favorites">
+    <div class="container page-head">
+      <div class="breadcrumbs">
+        <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+        <span class="sep">/</span>
+        <span class="current">المفضلة</span>
+      </div>
+      <h1>المفضلة</h1>
+      <p class="lead">المنتجات التي أضفتها للرجوع إليها لاحقًا.</p>
+    </div>
+    <div class="container section" style="padding-top:0" id="favoritesView"></div>
+  </section>
+
+  <!-- ============ CART ============ -->
+  <section class="view" id="view-cart">
+    <div class="container page-head">
+      <div class="breadcrumbs">
+        <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+        <span class="sep">/</span>
+        <span class="current">السلة</span>
+      </div>
+      <h1>السلة</h1>
+      <p class="lead">راجع المنتجات قبل بدء إتمام الشراء.</p>
+    </div>
+    <div class="container section" style="padding-top:0" id="cartView"></div>
+  </section>
+
+  <!-- ============ CHECKOUT ============ -->
+  <section class="view" id="view-checkout">
+    <div class="container page-head">
+      <div class="breadcrumbs">
+        <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+        <span class="sep">/</span>
+        <a href="#/cart" onclick="Router.go('cart');return false">السلة</a>
+        <span class="sep">/</span>
+        <span class="current">إتمام الشراء</span>
+      </div>
+      <h1>إتمام الشراء</h1>
+      <p class="lead">خطوات واضحة من البيانات حتى التأكيد.</p>
+    </div>
+    <div class="container section" style="padding-top:0" id="checkoutView"></div>
+  </section>
+
+  <!-- ============ SUCCESS ============ -->
+  <section class="view" id="view-success">
+    <div class="container section" id="successView"></div>
+  </section>
+
+  <!-- ============ LOGIN ============ -->
+  <section class="view" id="view-login">
+    <div class="container" style="max-width:520px;padding:56px 0" id="loginView"></div>
+  </section>
+
+  <!-- ============ REGISTER ============ -->
+  <section class="view" id="view-register">
+    <div class="container" style="max-width:560px;padding:56px 0" id="registerView"></div>
+  </section>
+
+  <!-- ============ FORGOT ============ -->
+  <section class="view" id="view-forgot">
+    <div class="container" style="max-width:520px;padding:56px 0" id="forgotView"></div>
+  </section>
+
+  <!-- ============ ACCOUNT ============ -->
+  <section class="view" id="view-account">
+    <div class="container page-head">
+      <div class="breadcrumbs">
+        <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+        <span class="sep">/</span>
+        <span class="current">الحساب</span>
+      </div>
+      <h1>الحساب الشخصي</h1>
+    </div>
+    <div class="container section" style="padding-top:0" id="accountView"></div>
+  </section>
+
+  <!-- ============ ORDERS ============ -->
+  <section class="view" id="view-orders">
+    <div class="container page-head">
+      <div class="breadcrumbs">
+        <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+        <span class="sep">/</span>
+        <span class="current">الطلبات</span>
+      </div>
+      <h1>الطلبات</h1>
+      <p class="lead">سجل الطلبات وحالة كل طلب.</p>
+    </div>
+    <div class="container section" style="padding-top:0" id="ordersView"></div>
+  </section>
+
+  <!-- ============ TRACKING ============ -->
+  <section class="view" id="view-tracking">
+    <div class="container page-head">
+      <div class="breadcrumbs">
+        <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+        <span class="sep">/</span>
+        <a href="#/orders" onclick="Router.go('orders');return false">الطلبات</a>
+        <span class="sep">/</span>
+        <span class="current">تتبع الطلب</span>
+      </div>
+      <h1>تتبع الطلب</h1>
+    </div>
+    <div class="container section" style="padding-top:0" id="trackingView"></div>
+  </section>
+
+  <!-- ============ HELP ============ -->
+  <section class="view" id="view-help">
+    <div class="container page-head">
+      <div class="breadcrumbs">
+        <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+        <span class="sep">/</span>
+        <span class="current">المساعدة</span>
+      </div>
+      <h1>المساعدة والتواصل</h1>
+      <p class="lead">الأسئلة الشائعة وطرق التواصل مع DEV-X.</p>
+    </div>
+    <div class="container section" style="padding-top:0" id="helpView"></div>
+  </section>
+
+  <!-- ============ 404 ============ -->
+  <section class="view" id="view-404">
+    <div class="container section" id="notFoundView"></div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="#/" onclick="Router.go('home');return false">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100'><text x='150' y='68' font-family='Arial Black, sans-serif' font-size='62' font-weight='900' text-anchor='middle' fill='white' letter-spacing='-3'>Dev-<tspan fill='%23FF751F'>X</tspan></text></svg>" alt="DEV-X">
+        </a>
+        <p class="brand-note">DEV-X STORE — متجر إلكتروني يحمل هوية DEV-X. جميع الأسعار والسياسات قيد الاعتماد الرسمي.</p>
+      </div>
+      <div>
+        <h5>المتجر</h5>
+        <ul>
+          <li><a href="#/store" onclick="Router.go('store');return false">كل المنتجات</a></li>
+          <li><a href="#/categories" onclick="Router.go('categories');return false">الأقسام</a></li>
+          <li><a href="#/store" onclick="Router.go('store');return false">وصل حديثًا</a></li>
+          <li><a href="#/store" onclick="Router.go('store');return false">الأكثر مبيعًا</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>حسابي</h5>
+        <ul>
+          <li><a href="#/login" onclick="Router.go('login');return false">تسجيل الدخول</a></li>
+          <li><a href="#/register" onclick="Router.go('register');return false">إنشاء حساب</a></li>
+          <li><a href="#/orders" onclick="Router.go('orders');return false">طلباتي</a></li>
+          <li><a href="#/favorites" onclick="Router.go('favorites');return false">المفضلة</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>المساعدة</h5>
+        <ul>
+          <li><a href="#/help" onclick="Router.go('help');return false">الأسئلة الشائعة</a></li>
+          <li><a href="#/help" onclick="Router.go('help');return false">تواصل معنا</a></li>
+          <li><a href="#/help" onclick="Router.go('help');return false">سياسة الخصوصية</a></li>
+          <li><a href="#/help" onclick="Router.go('help');return false">الشروط والأحكام</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span id="year"></span> DEV-X STORE. جميع الحقوق محفوظة.</div>
+      <div class="footer-social">
+        <a href="#/" aria-label="Instagram" onclick="UI.toast('قريبًا');return false">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>
+        </a>
+        <a href="#/" aria-label="X" onclick="UI.toast('قريبًا');return false">
+          <svg viewBox="0 0 24 24"><path d="m4 4 16 16M20 4 4 20"/></svg>
+        </a>
+        <a href="#/" aria-label="Facebook" onclick="UI.toast('قريبًا');return false">
+          <svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- DRAWERS -->
+<div class="drawer-backdrop" id="drawerBackdrop" onclick="UI.closeAllDrawers()"></div>
+
+<aside class="drawer" id="filtersDrawer" aria-label="فلاتر">
+  <div class="drawer-head">
+    <h3>الفلاتر</h3>
+    <button class="icon-btn" onclick="UI.closeDrawer('filtersDrawer')" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="filtersDrawerBody"></div>
+  <div class="drawer-foot">
+    <button class="btn btn-primary btn-block" onclick="UI.closeDrawer('filtersDrawer')">عرض النتائج</button>
+  </div>
+</aside>
+
+<aside class="drawer" id="miniCartDrawer" aria-label="السلة">
+  <div class="drawer-head">
+    <h3>سلتك</h3>
+    <button class="icon-btn" onclick="UI.closeDrawer('miniCartDrawer')" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="miniCartBody"></div>
+  <div class="drawer-foot" id="miniCartFoot"></div>
+</aside>
+
+<!-- TOASTS -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* =========================================================
+   DATA — Mock data clearly marked for replacement.
+   Prices & final data are NOT officially defined.
+   ========================================================= */
+const CATEGORIES = [
+  {id:'tshirts',    name:'تيشيرتات',  desc:'أوفر سايز وكلاسيك',    icon:'tshirt'},
+  {id:'hoodies',    name:'هوديز',     desc:'دفء وتصميم DEV-X',    icon:'hoodie'},
+  {id:'shirts',     name:'قمصان',     desc:'قمصان رسمية وكاجوال', icon:'shirt'},
+  {id:'pants',      name:'بناطيل',    desc:'جوجر، كارجو، جينز',   icon:'pants'},
+  {id:'jackets',    name:'جاكتات',    desc:'بومبر، فيستات',       icon:'jacket'},
+  {id:'accessories',name:'إكسسوارات', desc:'كابات، حقائب، وأكثر', icon:'accessory'}
+];
+
+const PRODUCTS = [
+  {id:'p1', name:'تيشيرت أوفر سايز', cat:'tshirts', price:null, oldPrice:null, isNew:true, isBest:false, isOut:false, colors:['#041F60','#145DA0','#FF751F'], sizes:['S','M','L','XL'], rating:4.6},
+  {id:'p2', name:'هودي DEV-X كلاسيك', cat:'hoodies', price:null, oldPrice:null, isNew:true, isBest:true, isOut:false, colors:['#041F60','#7500A9'], sizes:['M','L','XL'], rating:4.8},
+  {id:'p3', name:'قميص DEV-X أوفر', cat:'shirts', price:null, oldPrice:null, isNew:false, isBest:true, isOut:false, colors:['#041F60','#F5F2EE'], sizes:['M','L','XL'], rating:4.5},
+  {id:'p4', name:'جوجر DEV-X', cat:'pants', price:null, oldPrice:null, isNew:true, isBest:false, isOut:false, colors:['#041F60','#243356'], sizes:['M','L','XL'], rating:4.4},
+  {id:'p5', name:'بنطال كارجو', cat:'pants', price:null, oldPrice:null, isNew:false, isBest:false, isOut:false, colors:['#243356'], sizes:['M','L'], rating:4.3},
+  {id:'p6', name:'جاكت بومبر', cat:'jackets', price:null, oldPrice:null, isNew:false, isBest:true, isOut:false, colors:['#041F60'], sizes:['M','L','XL'], rating:4.7},
+  {id:'p7', name:'فيست DEV-X', cat:'jackets', price:null, oldPrice:null, isNew:false, isBest:false, isOut:false, colors:['#041F60'], sizes:['L','XL'], rating:4.2},
+  {id:'p8', name:'كاب DEV-X', cat:'accessories', price:null, oldPrice:null, isNew:true, isBest:true, isOut:false, colors:['#041F60','#FF751F'], sizes:['ONE'], rating:4.7},
+  {id:'p9', name:'حقيبة ظهر', cat:'accessories', price:null, oldPrice:null, isNew:false, isBest:false, isOut:false, colors:['#041F60'], sizes:['ONE'], rating:4.5},
+  {id:'p10',name:'كوب DEV-X', cat:'accessories', price:null, oldPrice:null, isNew:false, isBest:false, isOut:true, colors:['#041F60'], sizes:['ONE'], rating:4.4},
+  {id:'p11',name:'نوت بوك DEV-X', cat:'accessories', price:null, oldPrice:null, isNew:true, isBest:false, isOut:false, colors:['#041F60'], sizes:['ONE'], rating:4.6},
+  {id:'p12',name:'جراب موبايل', cat:'accessories', price:null, oldPrice:null, isNew:false, isBest:false, isOut:false, colors:['#041F60','#7500A9'], sizes:['ONE'], rating:4.3}
+];
+
+/* =========================================================
+   STATE
+   ========================================================= */
+const State = {
+  view: 'home',
+  productId: null,
+  storeQuery: '',
+  storeCat: 'all',
+  storeSort: 'relevance',
+  storeSizes: [],
+  storeOnlyNew: false,
+  storeOnlyBest: false,
+  cart: [],
+  favorites: [],
+  checkoutStep: 1,
+  lastOrder: null
+};
+
+/* =========================================================
+   UTIL
+   ========================================================= */
+const $  = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+const esc = (s='') => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const catName = id => CATEGORIES.find(c=>c.id===id)?.name || id;
+
+function icon(name){
+  const icons = {
+    tshirt:'<path d="M16 4l4 3v4h-3v9H7v-9H4V7l4-3 2 2h4l2-2Z"/>',
+    hoodie:'<path d="M8 4a4 4 0 0 1 8 0l4 3v6h-3v7H7v-7H4V7l4-3Z"/><path d="M9 4c0 2 1 3 3 3s3-1 3-3"/>',
+    shirt:'<path d="M16 4l4 3-2 3v10H6V10L4 7l4-3 2 2h4l2-2Z"/>',
+    pants:'<path d="M8 4h8v16h-3l-1-9-1 9H8V4Z"/>',
+    jacket:'<path d="M9 4l3 3 3-3 4 3v6h-2v8h-5V10h-4v11H6v-8H4V7l5-3Z"/>',
+    accessory:'<circle cx="12" cy="12" r="8"/><path d="M8 12h8M12 8v8"/>',
+    search:'<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.2 4.2"/>',
+    heart:'<path d="M20.5 8.6c0 5.1-8.5 10.2-8.5 10.2S3.5 13.7 3.5 8.6A4.6 4.6 0 0 1 12 6.2a4.6 4.6 0 0 1 8.5 2.4Z"/>',
+    cart:'<path d="M4 5h2l1.4 9.2a2 2 0 0 0 2 1.7h7.4a2 2 0 0 0 1.9-1.4L21 8H7"/><circle cx="10" cy="19" r="1"/><circle cx="18" cy="19" r="1"/>',
+    box:'<path d="M12 3 3 8v8l9 5 9-5V8l-9-5Z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
+    check:'<path d="M4 12l5 5L20 6"/>',
+    warn:'<path d="M12 3 2 21h20L12 3Z"/><path d="M12 9v5M12 17v.5"/>'
+  };
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${icons[name]||''}</svg>`;
+}
+
+/* =========================================================
+   UI — Toasts, menu, drawers
+   ========================================================= */
+const UI = {
+  toast(msg, type='info'){
+    const wrap = $('#toastWrap');
+    const el = document.createElement('div');
+    el.className = 'toast' + (type==='success'?' is-success':type==='error'?' is-error':'');
+    el.innerHTML = `<span class="dot"></span><span>${esc(msg)}</span>`;
+    wrap.appendChild(el);
+    requestAnimationFrame(()=>el.classList.add('is-show'));
+    setTimeout(()=>{
+      el.classList.remove('is-show');
+      setTimeout(()=>el.remove(), 300);
+    }, 2400);
+  },
+  toggleMenu(){ $('#mobileNav').classList.toggle('is-open'); },
+  openDrawer(id){
+    document.querySelectorAll('.drawer').forEach(d=>d.classList.remove('is-open'));
+    const d = document.getElementById(id);
+    if(d){ d.classList.add('is-open'); $('#drawerBackdrop').classList.add('is-open'); document.body.classList.add('no-scroll'); }
+  },
+  closeDrawer(id){
+    const d = document.getElementById(id);
+    if(d) d.classList.remove('is-open');
+    if(!document.querySelector('.drawer.is-open')){
+      $('#drawerBackdrop').classList.remove('is-open');
+      document.body.classList.remove('no-scroll');
+    }
+  },
+  closeAllDrawers(){
+    document.querySelectorAll('.drawer').forEach(d=>d.classList.remove('is-open'));
+    $('#drawerBackdrop').classList.remove('is-open');
+    document.body.classList.remove('no-scroll');
+  }
+};
+
+/* =========================================================
+   CART & FAVORITES
+   ========================================================= */
+const Cart = {
+  add(productId, qty=1, opts={}){
+    const existing = State.cart.find(x=>x.id===productId && x.color===opts.color && x.size===opts.size);
+    if(existing) existing.qty += qty;
+    else State.cart.push({id:productId, qty, color:opts.color||null, size:opts.size||null});
+    this.persist();
+    UI.toast('تمت الإضافة إلى السلة', 'success');
+    UI.openDrawer('miniCartDrawer');
+    this.renderMini();
+  },
+  remove(index){
+    State.cart.splice(index,1);
+    this.persist();
+    this.renderMini();
+    if(State.view==='cart') Cart.renderPage();
+  },
+  setQty(index, qty){
+    if(qty<=0) return this.remove(index);
+    State.cart[index].qty = qty;
+    this.persist();
+    this.renderMini();
+    if(State.view==='cart') Cart.renderPage();
+  },
+  totalItems(){ return State.cart.reduce((s,i)=>s+i.qty, 0); },
+  persist(){ localStorage.setItem('devx.cart', JSON.stringify(State.cart)); },
+  hydrate(){
+    try{ State.cart = JSON.parse(localStorage.getItem('devx.cart')||'[]'); }catch(e){ State.cart=[]; }
+  },
+  renderMini(){
+    const body = $('#miniCartBody'), foot = $('#miniCartFoot');
+    if(!State.cart.length){
+      body.innerHTML = `<div class="state" style="padding:24px 8px">
+        <div class="state-ic" style="background:var(--soft-blue);color:var(--blue)">${icon('cart')}</div>
+        <h3>السلة فارغة</h3>
+        <p class="small">ابدأ بإضافة منتجاتك المفضلة.</p>
+        <button class="btn btn-primary btn-sm" onclick="UI.closeAllDrawers();Router.go('store')">تصفح المتجر</button>
+      </div>`;
+      foot.innerHTML = '';
+      return;
+    }
+    body.innerHTML = State.cart.map((item,i)=>{
+      const p = PRODUCTS.find(x=>x.id===item.id);
+      if(!p) return '';
+      return `<div class="cart-item" style="padding:12px 0;border-bottom:1px solid var(--line-2);grid-template-columns:56px 1fr">
+        <div class="cart-thumb" style="font-size:13px">${catName(p.cat).charAt(0)}</div>
+        <div>
+          <h4 style="font-size:13px;margin:0 0 4px">${esc(p.name)}</h4>
+          <div class="small muted" style="font-size:11px">${item.qty} × <span style="color:var(--muted)">غير محدد</span></div>
+          <button class="btn btn-danger btn-sm" style="margin-top:6px;min-height:30px;padding:0 10px;font-size:11px" onclick="Cart.remove(${i})">حذف</button>
+        </div>
+      </div>`;
+    }).join('');
+    foot.innerHTML = `
+      <div class="sum-row" style="padding:4px 0"><span>عدد العناصر</span><b>${State.cart.reduce((s,i)=>s+i.qty,0)}</b></div>
+      <button class="btn btn-primary btn-block" style="margin-top:10px" onclick="UI.closeAllDrawers();Router.go('cart')">عرض السلة وإتمام الشراء</button>`;
+  },
+  renderPage(){
+    const box = $('#cartView');
+    if(!State.cart.length){
+      box.innerHTML = `<div class="card state">
+        <div class="state-ic" style="background:var(--soft-blue);color:var(--blue)">${icon('cart')}</div>
+        <h3>السلة فارغة</h3>
+        <p>لم تقم بإضافة أي منتج بعد. ابدأ التسوق الآن.</p>
+        <div class="actions"><button class="btn btn-primary" onclick="Router.go('store')">تصفح المتجر</button></div>
+      </div>`;
+      return;
+    }
+    const items = State.cart.map((item,i)=>{
+      const p = PRODUCTS.find(x=>x.id===item.id);
+      if(!p) return '';
+      return `<div class="cart-item">
+        <div class="cart-thumb">${catName(p.cat).charAt(0)}</div>
+        <div>
+          <h4>${esc(p.name)}</h4>
+          <p class="meta">${catName(p.cat)}${item.color?` · لون`:''}${item.size?` · مقاس ${esc(item.size)}`:''}</p>
+          <p class="price"><span style="color:var(--muted);font-size:12px;font-weight:600">السعر غير محدد</span></p>
+        </div>
+        <div class="item-actions">
+          <div class="qty">
+            <button onclick="Cart.setQty(${i}, ${item.qty-1})" aria-label="تقليل">−</button>
+            <span>${item.qty}</span>
+            <button onclick="Cart.setQty(${i}, ${item.qty+1})" aria-label="زيادة">+</button>
+          </div>
+          <button class="btn btn-danger btn-sm" onclick="Cart.remove(${i})">حذف</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    box.innerHTML = `
+      <div class="cart-layout">
+        <div class="card">${items}</div>
+        <aside class="card summary">
+          <h3>ملخص الطلب</h3>
+          <div class="sum-row"><span>عدد العناصر</span><b>${Cart.totalItems()}</b></div>
+          <div class="sum-row"><span>الإجمالي الفرعي</span><b style="color:var(--muted)">غير محدد</b></div>
+          <div class="sum-row"><span>الشحن</span><b style="color:var(--muted)">غير محدد</b></div>
+          <div class="sum-total"><span>الإجمالي</span><span style="color:var(--muted);font-size:14px">غير محدد</span></div>
+          <button class="btn btn-primary btn-block" style="margin-top:16px" onclick="Router.go('checkout')">إتمام الشراء</button>
+          <button class="btn btn-outline btn-block" style="margin-top:8px" onclick="Router.go('store')">متابعة التسوق</button>
+        </aside>
+      </div>`;
+  }
+};
+
+const Favorites = {
+  toggle(productId){
+    const idx = State.favorites.indexOf(productId);
+    if(idx>=0){ State.favorites.splice(idx,1); UI.toast('أُزيل من المفضلة'); }
+    else { State.favorites.push(productId); UI.toast('أُضيف إلى المفضلة','success'); }
+    this.persist();
+    this.updateBadge();
+    if(State.view==='favorites') this.renderPage();
+    if(State.view==='product') Product.render();
+  },
+  has(id){ return State.favorites.includes(id); },
+  persist(){ localStorage.setItem('devx.favs', JSON.stringify(State.favorites)); },
+  hydrate(){
+    try{ State.favorites = JSON.parse(localStorage.getItem('devx.favs')||'[]'); }catch(e){ State.favorites=[]; }
+  },
+  updateBadge(){ $('#favBadge').textContent = State.favorites.length; },
+  renderPage(){
+    const box = $('#favoritesView');
+    if(!State.favorites.length){
+      box.innerHTML = `<div class="card state">
+        <div class="state-ic" style="background:var(--soft-purple);color:var(--purple)">${icon('heart')}</div>
+        <h3>لا توجد منتجات في المفضلة حاليًا.</h3>
+        <p>أضف منتجات من صفحة التفاصيل لتظهر هنا.</p>
+        <div class="actions"><button class="btn btn-primary" onclick="Router.go('store')">تصفح المتجر</button></div>
+      </div>`;
+      return;
+    }
+    const list = PRODUCTS.filter(p=>State.favorites.includes(p.id));
+    box.innerHTML = `<div class="grid g-4">${list.map(Product.card).join('')}</div>`;
+  }
+};
+
+/* =========================================================
+   PRODUCT — card + detail
+   ========================================================= */
+const Product = {
+  card(p){
+    const fav = Favorites.has(p.id);
+    return `<article class="p-card ${p.isOut?'is-out':''}">
+      <div class="p-media">
+        <div class="p-tags">
+          ${p.isNew?'<span class="tag tag-new">جديد</span>':''}
+          ${p.oldPrice?'<span class="tag tag-discount">خصم</span>':''}
+          ${p.isOut?'<span class="tag tag-out">نفد</span>':''}
+        </div>
+        <button class="p-fav ${fav?'is-on':''}" onclick="Favorites.toggle('${p.id}')" aria-label="المفضلة">
+          <svg viewBox="0 0 24 24"><path d="M20.5 8.6c0 5.1-8.5 10.2-8.5 10.2S3.5 13.7 3.5 8.6A4.6 4.6 0 0 1 12 6.2a4.6 4.6 0 0 1 8.5 2.4Z"/></svg>
+        </button>
+        <div class="p-shape">${catName(p.cat).charAt(0)}</div>
+      </div>
+      <div class="p-body">
+        <div class="p-cat">${catName(p.cat)}</div>
+        <h3 class="p-name">${esc(p.name)}</h3>
+        <div class="p-price">
+          <span class="undef">السعر غير محدد</span>
+        </div>
+        <div class="p-actions">
+          <button class="btn btn-outline" onclick="Product.open('${p.id}')">التفاصيل</button>
+          <button class="btn btn-primary" onclick="Product.quickAdd('${p.id}')" ${p.isOut?'disabled':''}>${p.isOut?'نفد':'إضافة'}</button>
+        </div>
+      </div>
+    </article>`;
+  },
+  quickAdd(id){
+    const p = PRODUCTS.find(x=>x.id===id);
+    if(!p || p.isOut) return;
+    Cart.add(id, 1, {color:p.colors[0], size:p.sizes[0]});
+  },
+  open(id){
+    State.productId = id;
+    Router.go('product');
+  },
+  render(){
+    const p = PRODUCTS.find(x=>x.id===State.productId);
+    const box = $('#productView');
+    if(!p){
+      box.innerHTML = `<div class="card state">
+        <div class="state-ic" style="background:var(--soft-red);color:var(--error)">${icon('warn')}</div>
+        <h3>المنتج غير موجود</h3>
+        <div class="actions"><button class="btn btn-primary" onclick="Router.go('store')">تصفح المتجر</button></div>
+      </div>`;
+      return;
+    }
+    const fav = Favorites.has(p.id);
+    $('#productCrumbs').innerHTML = `
+      <a href="#/" onclick="Router.go('home');return false">الرئيسية</a>
+      <span class="sep">/</span>
+      <a href="#/store" onclick="Router.go('store');return false">المتجر</a>
+      <span class="sep">/</span>
+      <a href="#/" onclick="Store.setCat('${p.cat}');return false">${catName(p.cat)}</a>
+      <span class="sep">/</span>
+      <span class="current">${esc(p.name)}</span>`;
+
+    box.innerHTML = `
+      <div class="pd-layout">
+        <div class="pd-gallery">
+          <div class="pd-hero">
+            <div class="p-shape">${catName(p.cat).charAt(0)}</div>
+          </div>
+          <div class="pd-thumbs">
+            <div class="pd-thumb is-on">1</div>
+            <div class="pd-thumb">2</div>
+            <div class="pd-thumb">3</div>
+            <div class="pd-thumb">4</div>
+          </div>
+        </div>
+        <div class="pd-info">
+          <div class="pd-meta">
+            <span>${catName(p.cat)}</span>
+            ${p.isNew?'<span class="pill pill-blue">جديد</span>':''}
+            ${p.isOut?'<span class="pill pill-muted">نفد المخزون</span>':'<span class="pill pill-green">متوفر</span>'}
+          </div>
+          <h1 class="pd-title">${esc(p.name)}</h1>
+          <div class="pd-meta">
+            <span class="pd-rating">★ ${p.rating.toFixed(1)} <span class="muted" style="font-weight:600">(غير محدد عدد التقييمات)</span></span>
+          </div>
+          <div class="pd-price">
+            <span class="undef">السعر غير محدد — يحتاج اعتماد رسمي</span>
+          </div>
+
+          <div class="opt-group">
+            <div class="opt-header"><span class="label">اللون</span><span class="hint">اختر لونًا</span></div>
+            <div class="opt-row">
+              ${p.colors.map((c,i)=>`<button class="color-swatch ${i===0?'is-on':''}" aria-label="لون ${i+1}"><span style="background:${c}"></span></button>`).join('')}
+            </div>
+          </div>
+
+          <div class="opt-group">
+            <div class="opt-header"><span class="label">المقاس</span><span class="hint">غير محدد رسميًا</span></div>
+            <div class="opt-row">
+              ${p.sizes.map((s,i)=>`<button class="opt-chip ${i===0?'is-on':''}">${esc(s)}</button>`).join('')}
+            </div>
+          </div>
+
+          <div class="opt-group">
+            <div class="opt-header"><span class="label">الكمية</span></div>
+            <div class="qty" id="pdQty">
+              <button onclick="Product.qty(-1)">−</button>
+              <span id="pdQtyVal">1</span>
+              <button onclick="Product.qty(1)">+</button>
+            </div>
+          </div>
+
+          <div class="pd-actions">
+            <button class="btn btn-primary" onclick="Product.addDetail()" ${p.isOut?'disabled':''}>${p.isOut?'المنتج نفد':'أضف إلى السلة'}</button>
+            <button class="btn btn-navy" onclick="Product.buyNow()" ${p.isOut?'disabled':''}>اشترِ الآن</button>
+            <button class="btn btn-purple" onclick="Favorites.toggle('${p.id}')">${fav?'♥ في المفضلة':'♡ المفضلة'}</button>
+          </div>
+
+          <div>
+            <details class="acc" open><summary>الوصف</summary>
+              <div class="acc-body">وصف تفصيلي للمنتج قيد الاعتماد. سيُستبدل بنص رسمي من DEV-X.</div>
+            </details>
+            <details class="acc"><summary>الخامة والمواصفات</summary>
+              <div class="acc-body"><ul><li>الخامة: غير محددة</li><li>الوزن: غير محدد</li><li>بلد الصنع: غير محدد</li></ul></div>
+            </details>
+            <details class="acc"><summary>تعليمات العناية</summary>
+              <div class="acc-body">تعليمات العناية ستُضاف بعد اعتماد الخامات النهائية.</div>
+            </details>
+            <details class="acc"><summary>دليل المقاسات</summary>
+              <div class="acc-body">جدول المقاسات سيكون متاحًا بعد اعتماد القياسات الرسمية.</div>
+            </details>
+            <details class="acc"><summary>المراجعات</summary>
+              <div class="acc-body">قسم المراجعات سيكون متاحًا بعد اعتماد آلية التقييم.</div>
+            </details>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" style="padding-top:44px">
+        <div class="section-head">
+          <div class="eyebrow">اقتراحات</div>
+          <h2>منتجات مشابهة</h2>
+        </div>
+        <div class="grid g-4">
+          ${PRODUCTS.filter(x=>x.cat===p.cat && x.id!==p.id).slice(0,4).map(Product.card).join('')}
+        </div>
+      </div>`;
+  },
+  _qty: 1,
+  qty(delta){
+    this._qty = Math.max(1, this._qty + delta);
+    $('#pdQtyVal').textContent = this._qty;
+  },
+  addDetail(){
+    const p = PRODUCTS.find(x=>x.id===State.productId);
+    if(!p) return;
+    Cart.add(p.id, this._qty, {color:p.colors[0], size:p.sizes[0]});
+  },
+  buyNow(){
+    this.addDetail();
+    setTimeout(()=>Router.go('cart'), 200);
+  }
+};
+
+/* =========================================================
+   STORE
+   ========================================================= */
+const Store = {
+  setCat(cat){ State.storeCat = cat; if(State.view!=='store') Router.go('store'); else this.render(); },
+  filtered(){
+    let list = PRODUCTS.slice();
+    if(State.storeCat !== 'all') list = list.filter(p=>p.cat===State.storeCat);
+    if(State.storeQuery){
+      const q = State.storeQuery.toLowerCase();
+      list = list.filter(p=>p.name.toLowerCase().includes(q) || catName(p.cat).includes(q));
+    }
+    if(State.storeSizes.length){
+      list = list.filter(p=>p.sizes.some(s=>State.storeSizes.includes(s)));
+    }
+    if(State.storeOnlyNew) list = list.filter(p=>p.isNew);
+    if(State.storeOnlyBest) list = list.filter(p=>p.isBest);
+
+    switch(State.storeSort){
+      case 'newest': list.sort((a,b)=>Number(b.isNew)-Number(a.isNew)); break;
+      case 'bestseller': list.sort((a,b)=>Number(b.isBest)-Number(a.isBest)); break;
+      default: break;
+    }
+    return list;
+  },
+  renderChips(){
+    const chips = [{id:'all', name:'الكل'}, ...CATEGORIES.map(c=>({id:c.id, name:c.name}))];
+    $('#storeChips').innerHTML = chips.map(c=>
+      `<button class="chip ${State.storeCat===c.id?'is-active':''}" onclick="Store.setCat('${c.id}')">${c.name}</button>`
+    ).join('') + `
+      <button class="chip ${State.storeOnlyNew?'is-active':''}" onclick="State.storeOnlyNew=!State.storeOnlyNew;Store.render()">جديد</button>
+      <button class="chip ${State.storeOnlyBest?'is-active':''}" onclick="State.storeOnlyBest=!State.storeOnlyBest;Store.render()">الأكثر مبيعًا</button>`;
+  },
+  renderFilters(){
+    const sizes = ['S','M','L','XL','ONE'];
+    const html = `
+      <div class="filter-group">
+        <h5>القسم</h5>
+        <div class="filter-list">
+          <label class="filter-opt"><input type="radio" name="cat" ${State.storeCat==='all'?'checked':''} onchange="Store.setCat('all')"> الكل</label>
+          ${CATEGORIES.map(c=>`<label class="filter-opt"><input type="radio" name="cat" ${State.storeCat===c.id?'checked':''} onchange="Store.setCat('${c.id}')"> ${c.name}</label>`).join('')}
+        </div>
+      </div>
+      <div class="filter-group">
+        <h5>المقاس</h5>
+        <div class="filter-size-grid">
+          ${sizes.map(s=>`<button class="size-opt ${State.storeSizes.includes(s)?'is-on':''}" onclick="Store.toggleSize('${s}')">${s}</button>`).join('')}
+        </div>
+      </div>
+      <div class="filter-group">
+        <h5>خيارات</h5>
+        <div class="filter-list">
+          <label class="filter-opt"><input type="checkbox" ${State.storeOnlyNew?'checked':''} onchange="State.storeOnlyNew=!State.storeOnlyNew;Store.render()"> وصل حديثًا</label>
+          <label class="filter-opt"><input type="checkbox" ${State.storeOnlyBest?'checked':''} onchange="State.storeOnlyBest=!State.storeOnlyBest;Store.render()"> الأكثر مبيعًا</label>
+        </div>
+      </div>
+      <div class="filter-group">
+        <h5>السعر</h5>
+        <p class="small muted" style="margin:0">الأسعار غير محددة رسميًا. سيتم تفعيل الفلتر بعد الاعتماد.</p>
+      </div>`;
+    $('#filtersSide').innerHTML = html;
+    $('#filtersDrawerBody').innerHTML = html;
+  },
+  toggleSize(s){
+    const i = State.storeSizes.indexOf(s);
+    if(i>=0) State.storeSizes.splice(i,1); else State.storeSizes.push(s);
+    this.render();
+  },
+  render(){
+    State.storeQuery = $('#storeSearch')?.value || State.storeQuery || '';
+    State.storeSort = $('#storeSort')?.value || State.storeSort || 'relevance';
+    this.renderChips();
+    this.renderFilters();
+    const list = this.filtered();
+    $('#storeCount').textContent = `${list.length} منتج`;
+    if(!list.length){
+      $('#storeGrid').innerHTML = `<div class="card state" style="grid-column:1/-1">
+        <div class="state-ic" style="background:var(--soft-blue);color:var(--blue)">${icon('search')}</div>
+        <h3>لم يتم العثور على نتائج.</h3>
+        <p>جرّب استخدام كلمة بحث أخرى أو أزل بعض الفلاتر.</p>
+        <div class="actions"><button class="btn btn-outline" onclick="Store.reset()">إعادة ضبط الفلاتر</button></div>
+      </div>`;
+      return;
+    }
+    $('#storeGrid').innerHTML = list.map(Product.card).join('');
+  },
+  reset(){
+    State.storeQuery=''; State.storeCat='all'; State.storeSizes=[];
+    State.storeOnlyNew=false; State.storeOnlyBest=false;
+    const s = $('#storeSearch'); if(s) s.value='';
+    this.render();
+  }
+};
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+const Search = {
+  render(){
+    const q = ($('#globalSearch')?.value || '').toLowerCase().trim();
+    $('#searchSuggestions').innerHTML = ['تيشيرت','هودي','جاكت','إكسسوارات','كاب'].map(s=>
+      `<button class="chip" onclick="document.getElementById('globalSearch').value='${s}';Search.render()">${s}</button>`
+    ).join('');
+
+    const grid = $('#searchGrid');
+    if(!q){
+      grid.innerHTML = `<div class="card state" style="grid-column:1/-1">
+        <div class="state-ic" style="background:var(--soft-blue);color:var(--blue)">${icon('search')}</div>
+        <h3>ابدأ الكتابة للبحث</h3>
+        <p>جرّب: تيشيرت، هودي، كاب…</p>
+      </div>`;
+      return;
+    }
+    const list = PRODUCTS.filter(p=>p.name.toLowerCase().includes(q) || catName(p.cat).includes(q));
+    if(!list.length){
+      grid.innerHTML = `<div class="card state" style="grid-column:1/-1">
+        <div class="state-ic" style="background:var(--soft-red);color:var(--error)">${icon('search')}</div>
+        <h3>لم يتم العثور على نتائج.</h3>
+        <p>جرّب استخدام كلمة بحث أخرى.</p>
+        <div class="actions"><button class="btn btn-outline" onclick="document.getElementById('globalSearch').value='';Search.render()">مسح</button></div>
+      </div>`;
+      return;
+    }
+    grid.innerHTML = list.map(Product.card).join('');
+  }
+};
+
+/* =========================================================
+   CHECKOUT
+   ========================================================= */
+const Checkout = {
+  steps: [
+    {t:'البيانات', d:'بيانات العميل'},
+    {t:'العنوان', d:'عنوان التوصيل'},
+    {t:'التوصيل', d:'طريقة التوصيل'},
+    {t:'الدفع', d:'طريقة الدفع'},
+    {t:'المراجعة', d:'تأكيد الطلب'}
+  ],
+  render(){
+    if(!State.cart.length){
+      $('#checkoutView').innerHTML = `<div class="card state">
+        <div class="state-ic" style="background:var(--soft-blue);color:var(--blue)">${icon('cart')}</div>
+        <h3>لا يمكن إتمام الشراء — السلة فارغة</h3>
+        <div class="actions"><button class="btn btn-primary" onclick="Router.go('store')">تصفح المتجر</button></div>
+      </div>`;
+      return;
+    }
+
+    const stepper = this.steps.map((s,i)=>`
+      <div class="step ${State.checkoutStep===i+1?'is-active':''} ${State.checkoutStep>i+1?'is-done':''}"
+           onclick="Checkout.goStep(${i+1})">
+        <b>${String(i+1).padStart(2,'0')} — ${s.t}</b>${s.d}
+      </div>`).join('');
+
+    let body = '';
+    const nav = (nextLabel='التالي') => `
+      <div class="row-between" style="margin-top:20px">
+        <button class="btn btn-outline" ${State.checkoutStep===1?'disabled':''} onclick="Checkout.prev()">رجوع</button>
+        <button class="btn btn-primary" onclick="Checkout.next()">${nextLabel}</button>
+      </div>`;
+
+    switch(State.checkoutStep){
+      case 1:
+        body = `<h3 style="margin-bottom:14px">01 — بيانات العميل</h3>
+          <div class="field-group"><label class="field-label">الاسم الكامل <span class="req">*</span></label><input class="field" id="cName" placeholder="الاسم بالكامل"></div>
+          <div class="field-group"><label class="field-label">البريد الإلكتروني <span class="req">*</span></label><input class="field" id="cEmail" type="email" placeholder="name@example.com"></div>
+          <div class="field-group"><label class="field-label">رقم الهاتف <span class="req">*</span></label><input class="field" id="cPhone" inputmode="tel" placeholder="رقم الهاتف"></div>
+          ${nav()}`; break;
+      case 2:
+        body = `<h3 style="margin-bottom:14px">02 — عنوان التوصيل</h3>
+          <div class="form-row">
+            <div class="field-group"><label class="field-label">المحافظة <span class="req">*</span></label><input class="field" placeholder="المحافظة"></div>
+            <div class="field-group"><label class="field-label">المنطقة <span class="req">*</span></label><input class="field" placeholder="المنطقة"></div>
+          </div>
+          <div class="field-group"><label class="field-label">العنوان بالتفصيل <span class="req">*</span></label><input class="field" placeholder="الشارع، علامة مميزة"></div>
+          <div class="form-row">
+            <div class="field-group"><label class="field-label">رقم المبنى</label><input class="field"></div>
+            <div class="field-group"><label class="field-label">الدور</label><input class="field"></div>
+          </div>
+          <div class="field-group"><label class="field-label">الشقة</label><input class="field"></div>
+          ${nav()}`; break;
+      case 3:
+        body = `<h3 style="margin-bottom:14px">03 — طريقة التوصيل</h3>
+          <div class="opt-row">
+            <button class="opt-chip is-on">التوصيل العادي</button>
+            <button class="opt-chip">خيار آخر (قيد الاعتماد)</button>
+          </div>
+          <p class="muted small" style="margin-top:12px">سيتم إظهار التكلفة والموعد المتوقع بعد اعتماد سياسة الشحن.</p>
+          ${nav()}`; break;
+      case 4:
+        body = `<h3 style="margin-bottom:14px">04 — طريقة الدفع</h3>
+          <div class="opt-row">
+            <button class="opt-chip is-on">طريقة دفع تجريبية</button>
+            <button class="opt-chip">الدفع عند الاستلام (قيد الاعتماد)</button>
+          </div>
+          <p class="muted small" style="margin-top:12px">لا يتم تنفيذ أي دفع حقيقي في هذا النموذج.</p>
+          ${nav()}`; break;
+      case 5:
+        body = `<h3 style="margin-bottom:14px">05 — مراجعة الطلب</h3>
+          <div class="card card-pad" style="background:var(--soft-blue);border-color:rgba(20,93,160,.14);box-shadow:none">
+            <b>جاهز للتأكيد</b>
+            <p class="small muted" style="margin:6px 0 0">راجع البيانات قبل إرسال الطلب. لن يتم تنفيذ دفع حقيقي.</p>
+          </div>
+          <div class="divider"></div>
+          <div class="sum-row"><span>عدد العناصر</span><b>${Cart.totalItems()}</b></div>
+          <div class="sum-row"><span>الإجمالي</span><span class="muted" style="font-weight:700">غير محدد</span></div>
+          ${nav('تأكيد الطلب')}`; break;
+    }
+
+    $('#checkoutView').innerHTML = `
+      <div class="stepper">${stepper}</div>
+      <div class="checkout-layout">
+        <div class="card card-pad">${body}</div>
+        <aside class="card summary">
+          <h3>ملخص</h3>
+          <div class="sum-row"><span>العناصر</span><b>${Cart.totalItems()}</b></div>
+          <div class="sum-row"><span>الإجمالي</span><span class="muted" style="font-weight:700">غير محدد</span></div>
+          <div class="divider"></div>
+          <p class="small muted" style="margin:0">الأسعار النهائية والرسوم قيد الاعتماد الرسمي من DEV-X.</p>
+        </aside>
+      </div>`;
+  },
+  goStep(n){ State.checkoutStep = n; this.render(); },
+  prev(){ if(State.checkoutStep>1){ State.checkoutStep--; this.render(); } },
+  next(){
+    if(State.checkoutStep===1){
+      const name = $('#cName').value.trim(), email = $('#cEmail').value.trim(), phone = $('#cPhone').value.trim();
+      if(!name){ $('#cName').classList.add('is-error'); UI.toast('الرجاء إدخال الاسم','error'); return; }
+      if(!email || !email.includes('@')){ $('#cEmail').classList.add('is-error'); UI.toast('البريد الإلكتروني غير صحيح','error'); return; }
+      if(!phone){ $('#cPhone').classList.add('is-error'); UI.toast('الرجاء إدخال رقم الهاتف','error'); return; }
+    }
+    if(State.checkoutStep===5){
+      State.lastOrder = {
+        id: 'DEVX-' + Math.floor(100000 + Math.random()*900000),
+        items: State.cart.slice(),
+        total: null,
+        date: new Date().toISOString()
+      };
+      State.cart = []; Cart.persist(); Cart.renderMini(); Cart.updateBadgeGlobal?.();
+      Router.go('success');
+      return;
+    }
+    State.checkoutStep++; this.render();
+  }
+};
+
+/* =========================================================
+   AUTH
+   ========================================================= */
+const Auth = {
+  renderLogin(){
+    $('#loginView').innerHTML = `
+      <div class="card card-pad">
+        <div class="eyebrow">ACCOUNT</div>
+        <h1 style="font-size:26px">تسجيل الدخول</h1>
+        <p class="muted">مرحبًا بعودتك إلى DEV-X STORE.</p>
+        <div class="field-group"><label class="field-label">البريد الإلكتروني</label><input class="field" type="email" placeholder="name@example.com"></div>
+        <div class="field-group"><label class="field-label">كلمة المرور</label><input class="field" type="password" placeholder="••••••••"></div>
+        <div class="row-between" style="margin:14px 0">
+          <label class="row small" style="gap:6px"><input type="checkbox" style="accent-color:var(--blue)"> تذكرني</label>
+          <a href="#/forgot" onclick="Router.go('forgot');return false" class="small" style="color:var(--blue);font-weight:700">نسيت كلمة المرور؟</a>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="UI.toast('نموذج واجهة فقط','success');Router.go('account')">تسجيل الدخول</button>
+        <div class="divider"></div>
+        <button class="btn btn-outline btn-block" onclick="Router.go('register')">إنشاء حساب جديد</button>
+        <button class="btn btn-soft btn-block" style="margin-top:8px" onclick="Router.go('checkout')">متابعة كزائر</button>
+      </div>`;
+  },
+  renderRegister(){
+    $('#registerView').innerHTML = `
+      <div class="card card-pad">
+        <div class="eyebrow">ACCOUNT</div>
+        <h1 style="font-size:26px">إنشاء حساب</h1>
+        <p class="muted">خطوات بسيطة للانضمام إلى DEV-X STORE.</p>
+        <div class="field-group"><label class="field-label">الاسم الكامل</label><input class="field"></div>
+        <div class="field-group"><label class="field-label">البريد الإلكتروني</label><input class="field" type="email"></div>
+        <div class="field-group"><label class="field-label">رقم الهاتف</label><input class="field" inputmode="tel"></div>
+        <div class="form-row">
+          <div class="field-group"><label class="field-label">كلمة المرور</label><input class="field" type="password"></div>
+          <div class="field-group"><label class="field-label">تأكيد كلمة المرور</label><input class="field" type="password"></div>
+        </div>
+        <label class="row small" style="margin:14px 0;gap:8px"><input type="checkbox" style="accent-color:var(--blue)"> أوافق على الشروط والأحكام</label>
+        <button class="btn btn-primary btn-block" onclick="UI.toast('نموذج واجهة فقط','success');Router.go('account')">إنشاء الحساب</button>
+        <div class="divider"></div>
+        <button class="btn btn-outline btn-block" onclick="Router.go('login')">لدي حساب بالفعل</button>
+      </div>`;
+  },
+  renderForgot(){
+    $('#forgotView').innerHTML = `
+      <div class="card card-pad">
+        <div class="eyebrow">ACCOUNT</div>
+        <h1 style="font-size:26px">استعادة كلمة المرور</h1>
+        <p class="muted">سنرسل رابط الاستعادة إلى بريدك الإلكتروني.</p>
+        <div class="field-group"><label class="field-label">البريد الإلكتروني</label><input class="field" type="email" placeholder="name@example.com"></div>
+        <button class="btn btn-primary btn-block" onclick="UI.toast('سيتم إرسال الرابط — نموذج فقط','success')">إرسال رابط الاستعادة</button>
+        <div class="divider"></div>
+        <button class="btn btn-outline btn-block" onclick="Router.go('login')">العودة لتسجيل الدخول</button>
+      </div>`;
+  }
+};
+
+/* =========================================================
+   ACCOUNT / ORDERS / TRACKING / HELP
+   ========================================================= */
+const Account = {
+  render(){
+    $('#accountView').innerHTML = `
+      <div class="grid" style="grid-template-columns:260px 1fr;gap:24px;align-items:start">
+        <aside class="card card-pad">
+          <h3 style="margin-bottom:14px">لوحة الحساب</h3>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <button class="btn btn-soft" style="justify-content:flex-start">البيانات الشخصية</button>
+            <button class="btn btn-outline" style="justify-content:flex-start" onclick="Router.go('orders')">الطلبات</button>
+            <button class="btn btn-outline" style="justify-content:flex-start" onclick="Router.go('favorites')">المفضلة</button>
+            <button class="btn btn-outline" style="justify-content:flex-start" onclick="UI.toast('العناوين — قيد الاعتماد')">العناوين</button>
+            <button class="btn btn-outline" style="justify-content:flex-start" onclick="UI.toast('طرق الدفع — قيد الاعتماد')">طرق الدفع</button>
+            <button class="btn btn-outline" style="justify-content:flex-start" onclick="UI.toast('الإعدادات — قيد الاعتماد')">الإعدادات</button>
+            <button class="btn btn-danger" style="justify-content:flex-start" onclick="Router.go('login')">تسجيل الخروج</button>
+          </div>
+        </aside>
+        <div class="card card-pad">
+          <h3>البيانات الشخصية</h3>
+          <div class="form-row">
+            <div class="field-group"><label class="field-label">الاسم</label><input class="field" placeholder="اسم المستخدم"></div>
+            <div class="field-group"><label class="field-label">البريد الإلكتروني</label><input class="field" placeholder="name@example.com"></div>
+          </div>
+          <div class="form-row">
+            <div class="field-group"><label class="field-label">رقم الهاتف</label><input class="field"></div>
+            <div class="field-group"><label class="field-label">اللغة</label>
+              <select class="field"><option>العربية</option><option>English</option></select>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:10px" onclick="UI.toast('تم الحفظ — نموذج فقط','success')">حفظ التغييرات</button>
+        </div>
+      </div>`;
+  }
+};
+
+const Orders = {
+  render(){
+    const order = State.lastOrder;
+    if(!order){
+      $('#ordersView').innerHTML = `<div class="card state">
+        <div class="state-ic" style="background:var(--soft-blue);color:var(--blue)">${icon('box')}</div>
+        <h3>لا توجد طلبات بعد</h3>
+        <p>ابدأ التسوق لإنشاء أول طلب.</p>
+        <div class="actions"><button class="btn btn-primary" onclick="Router.go('store')">تصفح المتجر</button></div>
+      </div>`;
+      return;
+    }
+    $('#ordersView').innerHTML = `
+      <div class="card card-pad">
+        <div class="row-between" style="margin-bottom:14px">
+          <div>
+            <b style="color:var(--navy);font-size:15px">طلب رقم ${esc(order.id)}</b>
+            <div class="small muted">${new Date(order.date).toLocaleString('ar-EG')}</div>
+          </div>
+          <span class="pill pill-orange">قيد التجهيز</span>
+        </div>
+        <div class="divider"></div>
+        <div class="sum-row"><span>عدد العناصر</span><b>${order.items.reduce((s,i)=>s+i.qty,0)}</b></div>
+        <div class="sum-row"><span>الإجمالي</span><span class="muted" style="font-weight:700">غير محدد</span></div>
+        <div class="actions" style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="Router.go('tracking')">تتبع الطلب</button>
+          <button class="btn btn-outline" onclick="UI.toast('تفاصيل الطلب — قيد الاعتماد')">تفاصيل الطلب</button>
+        </div>
+      </div>`;
+  }
+};
+
+const Tracking = {
+  render(){
+    const steps = [
+      {t:'تم استلام الطلب', d:'تم تسجيل طلبك في النظام.', done:true},
+      {t:'تم تأكيد الطلب', d:'بانتظار تأكيد المتجر.', done:false},
+      {t:'جاري تجهيز الطلب', d:'—', done:false},
+      {t:'تم شحن الطلب', d:'—', done:false},
+      {t:'تم توصيل الطلب', d:'—', done:false}
+    ];
+    $('#trackingView').innerHTML = `
+      <div class="card card-pad">
+        <h3 style="margin-bottom:16px">حالة الطلب</h3>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          ${steps.map((s,i)=>`
+            <div class="row" style="align-items:flex-start;gap:14px">
+              <div style="width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;
+                background:${s.done?'var(--soft-green)':'var(--surface-3)'};
+                color:${s.done?'var(--success)':'var(--muted)'};font-weight:900">
+                ${s.done? '✓' : (i+1)}
+              </div>
+              <div>
+                <b style="color:${s.done?'var(--navy)':'var(--muted)'}">${s.t}</b>
+                <div class="small muted">${s.d}</div>
+              </div>
+            </div>`).join('')}
+        </div>
+        <div class="divider"></div>
+        <button class="btn btn-outline" onclick="Router.go('orders')">العودة للطلبات</button>
+      </div>`;
+  }
+};
+
+const Help = {
+  render(){
+    $('#helpView').innerHTML = `
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:24px">
+        <div class="card card-pad">
+          <h3 style="margin-bottom:12px">الأسئلة الشائعة</h3>
+          <details class="acc" open><summary>هل يمكن الشراء كزائر؟</summary>
+            <div class="acc-body">هذا قرار قيد الاعتماد من DEV-X. النموذج يقترح إتاحة الشراء كزائر.</div>
+          </details>
+          <details class="acc"><summary>ما هي طرق الدفع؟</summary>
+            <div class="acc-body">سيتم الإعلان عن طرق الدفع الرسمية بعد الاعتماد.</div>
+          </details>
+          <details class="acc"><summary>ماذا لو لم توجد نتائج؟</summary>
+            <div class="acc-body">تظهر حالة فارغة مع اقتراحات بديلة.</div>
+          </details>
+          <details class="acc"><summary>ما هي سياسة الإرجاع؟</summary>
+            <div class="acc-body">قيد الاعتماد الرسمي.</div>
+          </details>
+        </div>
+        <div class="card card-pad">
+          <h3 style="margin-bottom:12px">تواصل معنا</h3>
+          <div class="field-group"><label class="field-label">الاسم</label><input class="field"></div>
+          <div class="field-group"><label class="field-label">البريد الإلكتروني</label><input class="field" type="email"></div>
+          <div class="field-group"><label class="field-label">الرسالة</label><textarea class="field"></textarea></div>
+          <button class="btn btn-primary" style="margin-top:10px" onclick="UI.toast('تم الإرسال — نموذج فقط','success')">إرسال</button>
+        </div>
+      </div>`;
+  }
+};
+
+const Success = {
+  render(){
+    const o = State.lastOrder;
+    if(!o){
+      $('#successView').innerHTML = `<div class="card state">
+        <div class="state-ic" style="background:var(--soft-blue);color:var(--blue)">${icon('check')}</div>
+        <h3>لا يوجد طلب لعرضه</h3>
+        <div class="actions"><button class="btn btn-primary" onclick="Router.go('store')">تصفح المتجر</button></div>
+      </div>`;
+      return;
+    }
+    $('#successView').innerHTML = `
+      <div class="card state">
+        <div class="state-ic" style="background:var(--soft-green);color:var(--success)">${icon('check')}</div>
+        <h2>تم استلام طلبك بنجاح</h2>
+        <p>رقم الطلب: <b style="color:var(--navy)">${esc(o.id)}</b></p>
+        <p class="small muted">هذا نموذج واجهة فقط — لا يوجد طلب حقيقي أو دفع حقيقي.</p>
+        <div class="actions">
+          <button class="btn btn-primary" onclick="Router.go('tracking')">تتبع الطلب</button>
+          <button class="btn btn-outline" onclick="Router.go('store')">متابعة التسوق</button>
+        </div>
+      </div>`;
+  }
+};
+
+/* =========================================================
+   ROUTER
+   ========================================================= */
+const Router = {
+  go(view){
+    State.view = view;
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('is-active'));
+    const el = document.getElementById('view-'+view) || document.getElementById('view-404');
+    el.classList.add('is-active');
+
+    document.querySelectorAll('.nav [data-nav]').forEach(b=>{
+      b.classList.toggle('is-active', b.dataset.nav===view);
+    });
+
+    // scroll to top
+    window.scrollTo({top:0, behavior:'smooth'});
+
+    // render per view
+    switch(view){
+      case 'home': Home.render(); break;
+      case 'categories': Home.renderCategoriesPage(); break;
+      case 'store': Store.render(); break;
+      case 'search': Search.render(); break;
+      case 'product': Product.render(); break;
+      case 'favorites': Favorites.renderPage(); break;
+      case 'cart': Cart.renderPage(); break;
+      case 'checkout': Checkout.render(); break;
+      case 'success': Success.render(); break;
+      case 'login': Auth.renderLogin(); break;
+      case 'register': Auth.renderRegister(); break;
+      case 'forgot': Auth.renderForgot(); break;
+      case 'account': Account.render(); break;
+      case 'orders': Orders.render(); break;
+      case 'tracking': Tracking.render(); break;
+      case 'help': Help.render(); break;
+      default:
+        $('#notFoundView').innerHTML = `<div class="card state">
+          <div class="state-ic" style="background:var(--soft-red);color:var(--error)">${icon('warn')}</div>
+          <h3>الصفحة غير موجودة</h3>
+          <div class="actions"><button class="btn btn-primary" onclick="Router.go('home')">الصفحة الرئيسية</button></div>
+        </div>`;
+    }
+
+    // update URL hash for deep-linking
+    if(location.hash !== '#/'+view) history.replaceState(null,'','#/'+view);
+  }
+};
+
+/* =========================================================
+   HOME
+   ========================================================= */
+const Home = {
+  render(){
+    // Categories
+    $('#homeCategories').innerHTML = CATEGORIES.map(c=>`
+      <button class="cat-tile" onclick="Store.setCat('${c.id}')">
+        <div class="cat-ic">${icon(c.icon)}</div>
+        <h4>${c.name}</h4>
+        <span>${c.desc}</span>
+      </button>`).join('');
+
+    // New products
+    $('#homeNew').innerHTML = PRODUCTS.filter(p=>p.isNew).slice(0,8).map(Product.card).join('');
+
+    // Best sellers
+    $('#homeBest').innerHTML = PRODUCTS.filter(p=>p.isBest).slice(0,8).map(Product.card).join('');
+  },
+  renderCategoriesPage(){
+    $('#catPageGrid').innerHTML = CATEGORIES.map(c=>`
+      <button class="cat-tile" onclick="Store.setCat('${c.id}')">
+        <div class="cat-ic">${icon(c.icon)}</div>
+        <h4>${c.name}</h4>
+        <span>${c.desc}</span>
+      </button>`).join('');
+  }
+};
+
+/* =========================================================
+   BOOT
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', ()=>{
+  $('#year').textContent = new Date().getFullYear();
+  Cart.hydrate(); Favorites.hydrate();
+  Favorites.updateBadge(); Cart.renderMini();
+  $('#cartBadge').textContent = Cart.totalItems();
+
+  // Patch Cart to update badge on changes
+  const _add = Cart.add.bind(Cart);
+  Cart.add = function(...args){ _add(...args); $('#cartBadge').textContent = Cart.totalItems(); };
+  const _remove = Cart.remove.bind(Cart);
+  Cart.remove = function(...args){ _remove(...args); $('#cartBadge').textContent = Cart.totalItems(); };
+  const _setQty = Cart.setQty.bind(Cart);
+  Cart.setQty = function(...args){ _setQty(...args); $('#cartBadge').textContent = Cart.totalItems(); };
+
+  // Initial route
+  const hash = (location.hash||'').replace('#/','').trim();
+  const initial = hash && document.getElementById('view-'+hash) ? hash : 'home';
+  Router.go(initial);
+
+  // Hash change
+  window.addEventListener('hashchange', ()=>{
+    const h = (location.hash||'').replace('#/','').trim();
+    if(h && h !== State.view && document.getElementById('view-'+h)) Router.go(h);
+  });
+
+  // Global keyboard: ESC closes drawers
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') UI.closeAllDrawers(); });
+
+  // Clear error state on input
+  document.addEventListener('input', e=>{
+    if(e.target && e.target.classList && e.target.classList.contains('is-error')){
+      e.target.classList.remove('is-error');
+    }
+  });
+});
+</script>
+</body>
+</html>
